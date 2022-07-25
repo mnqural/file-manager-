@@ -1,0 +1,40 @@
+{% extends 'body.html' %}
+
+{% block title %}
+    Main
+{% endblock %}
+
+{% block content_title %}
+    {% if logged_in: %}
+        <p>{{ current_working_directory }}</p>
+    {% else %}
+        <p>Пожалуйста, войдите!</p>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if logged_in: %}
+        <form action="/upload" method=post enctype=multipart/form-data>
+                <input type="file" name="file"/>
+                <input type="submit" value="upload"/>
+        </form>
+        <form action="/md">
+            <input type="submit" value="New folder"/>
+            <input name="folder" type="text" value="new_folder"/>
+        </form>
+        <ul>
+            <li><a style="color:black" href="/cd?path=..">..</a></li>
+            {% for item in itemList %}
+                {% if '.' not in item %}
+                    <li><strong><a style="color: black" href="/cd?path={{current_working_directory + '/' + item}}">{{item}}</a></strong><a style="color: black" href="/rm?dir={{item}}">[delete]</a></li>
+                {% endif %}
+            {% endfor %}
+            {% for item in itemList %}
+                {% if '.' in item %}
+                    <li><a style="color: black" href="/download{{ urlFilePath }}/{{ item }}">{{ item }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+

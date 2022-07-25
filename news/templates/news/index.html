@@ -1,0 +1,15 @@
+{% extends 'body.html' %}
+
+{% block title %}
+    news
+{% endblock %}
+
+{% block content_title %}
+    Недавние обновления
+{% endblock %}
+
+{% block content %}
+    {% for item, date in itemList %}
+        <li><a style="color: black" >{{ item }}  {{date}}</a></li>
+    {% endfor %}
+{% endblock %}

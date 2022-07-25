@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>
+    {% block title %}
+
+    {% endblock %}
+  </title>
+<style>
+body {margin:0;}
+a {text-decoration: none;}
+.ul-header {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color:   #209dc3;
+  top: 0;
+  width: 100%;
+}
+
+.li-header {
+  float: left;
+}
+
+.nav a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.nav a:hover:not(.active) {
+  background-color: #145b71;
+}
+
+.active {
+  background-color:  #197591;
+}
+
+.container{
+  padding:20px;
+  margin-top:30px;
+  background-color:#ffffff;
+  height:1500px;
+ }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <ul class="ul-header">
+    <li class="li-header"><a href=" {{ url_for('index') }} ">Главная</a></li>
+    {% if not logged_in: %}
+      <li class="li-header" style="float:right"><a href=" {{ url_for('login') }} ">Вход</a></li>
+    {% else %}
+      <li class="li-header" style="float:right"><a href=" {{ url_for('logout') }} ">Выйти</a></li>
+      <li class="li-header"><a href=" {{ url_for('news.index') }} ">Недавние</a></li>
+    {% endif %}
+  </ul>
+</nav>
+<div class="container">
+  <div class="row">
+    <h1>
+      {% block content_title %}
+
+      {% endblock %}
+    </h1>
+    {% block content %}
+
+    {% endblock %}
+  </div>
+</div>
+</body>
+</html>
